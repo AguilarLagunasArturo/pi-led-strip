@@ -1,7 +1,19 @@
 # PI Led Strip
-Control WS2811 indexable led strip over WiFi using a self hosted web page.
+Use a Raspberry PI Zero to control WS2811 indexable led strip over WiFi using a self hosted web page.
 
-# Service setup
+# Setup
+## Wriring
+
+## Raspberry PI Configuration
+Enable SPI through the GUI or directly set `` in the rpi configuration file ``.
+
+## Dependencies
+Install dependencies to control WS2811 led strip.
+```bash
+pip install rpi-ws281x
+pip install adafruit-circuitpython-neopixel
+```
+## Service
 The following block is a service configuration file (`service_name.service`) example. `ExecStart` must be an executable program, you can set it up like this: `sudo chmod +x program.py`.
 
 ```bash
@@ -43,3 +55,10 @@ sudo systemctl status service_name
 # Show services journal
 sudo journalctl -f
 ```
+
+# References
+- https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring
+- https://tutorials-raspberrypi.com/how-to-control-a-raspberry-pi-ws2801-rgb-led-strip/
+- https://pypi.org/project/rpi-ws281x/
+- https://docs.circuitpython.org/projects/neopixel/en/latest/
+
