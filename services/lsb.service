@@ -1,0 +1,14 @@
+[Unit]
+Description=Led starting behavior
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/Github/pi-led-strip/main
+ExecStart=/home/pi/Github/pi-led-strip/main/./led_starting_behavior.py
+TimeoutSec=45s
+Restart=always
+RestartSec=20s
+
+[Install]
+WantedBy=multi-user.target
