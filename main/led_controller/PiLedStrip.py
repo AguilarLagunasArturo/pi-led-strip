@@ -10,6 +10,7 @@ class PiLedController():
     TYPE_SPI = 10 # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 
     def __init__(
+        self,
         led_count,                      # Amount of leds to control
         led_strip_pin=None,             # Number of LED pixels
         led_hz_frequency=1_100_000,     # LED signal frequency in hertz (usually 800khz)
@@ -27,7 +28,7 @@ class PiLedController():
         self.LED_DMA = led_dma
         self.LED_BRIGHTNESS = led_brightness
         self.LED_INVERT = led_invert
-        self.LED_CHANNEL = led_strip_pin
+        self.LED_CHANNEL = led_strip_channel
 
         # Create NeoPixel object with appropriate configuration
         self.strip = PixelStrip(
@@ -41,7 +42,7 @@ class PiLedController():
     	)
 
         # Intialize the library
-        selfstrip.begin()
+        self.strip.begin()
 
 
 
@@ -115,18 +116,15 @@ if __name__ == '__main__':
 
     led_strip = PiLedController(100)
 
-    if not args.clear:
-        print('Use "-c" argument to clear LEDs on exit')
-
     try:
-        led_strip.colorWipe(strip, Color(0, 0, 0), 10)
+        led_strip.colorWipe((0, 0, 0), 10)
         while True:
-            led_strip.colorWipe(strip, (20, 0, 0))  # Red wipe
-            led_strip.colorWipe(strip, (0, 20, 0))  # Green wipe
-            led_strip.colorWipe(strip, (0, 0, 20))  # Blue wipe
+            led_strip.colorWipe((20, 0, 0))  # Red wipe
+            led_strip.colorWipe((0, 20, 0))  # Green wipe
+            led_strip.colorWipe((0, 0, 20))  # Blue wipe
             #rainbow(strip)
             #rainbowCycle(strip)
             #theaterChaseRainbow(strip)
     except KeyboardInterrupt:
         if args.clear:
-            colorWipe(strip, Color(0, 0, 0), 10)
+            colorWipe((0, 0, 0), 10)
