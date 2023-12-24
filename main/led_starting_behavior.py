@@ -41,8 +41,10 @@ def execute_action():
         print("Toggle state")
         toggle_state()
     elif data['action'] == 'p5_click':
+        data['color']
+        data['leds']
         print("Click from p5")
-        color_by_level()
+        # color_by_level()
 
     return jsonify({"status": "success"})
 
@@ -53,6 +55,10 @@ def toggle_state():
     if curr_status == 0:
         color_by_level()
     led_strip.colorWipe(DEFAULT_STATUS[curr_status])
+
+def color_by_selection(selection, color):
+    global led_strip
+    led_strip.colorWipe((color[1], color[0], color[2]), custom_range=selection)
 
 def color_by_level():
     global led_strip

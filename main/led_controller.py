@@ -16,6 +16,10 @@ def execute_action():
         print("Toggle state")
         control_electronics()
     elif data['action'] == 'p5_click':
+        leds = data['leds']
+        color = data['color']
+        print(leds)
+        print(color)
         print("Click from p5")
 
     return jsonify({"status": "success"})
