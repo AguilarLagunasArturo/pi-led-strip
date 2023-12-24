@@ -55,7 +55,7 @@ class PiLedController():
             time.sleep(wait_ms / 1000.0)
 
 
-    def theaterChase(self, self.strip, rgb, wait_ms=50, iterations=10):
+    def theaterChase(self, rgb, wait_ms=50, iterations=10):
         color = Color(rgb[0], rgb[1], rgb[2])
         """Movie theater light style chaser animation."""
         for j in range(iterations):
