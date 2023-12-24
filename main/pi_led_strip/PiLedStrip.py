@@ -111,20 +111,20 @@ class PiLedController():
                 for i in range(0, self.strip.numPixels(), 3):
                     self.strip.setPixelColor(i + q, 0)
 
-# Main program logic follows:
-if __name__ == '__main__':
-
-    led_strip = PiLedController(100)
-
-    try:
-        led_strip.colorWipe((0, 0, 0), 10)
-        while True:
-            led_strip.colorWipe((20, 0, 0))  # Red wipe
-            led_strip.colorWipe((0, 20, 0))  # Green wipe
-            led_strip.colorWipe((0, 0, 20))  # Blue wipe
-            #rainbow(strip)
-            #rainbowCycle(strip)
-            #theaterChaseRainbow(strip)
-    except KeyboardInterrupt:
-        if args.clear:
-            colorWipe((0, 0, 0), 10)
+## Main program logic follows:
+#if __name__ == '__main__':
+#
+#    led_strip = PiLedController(100)
+#
+#    try:
+#        led_strip.colorWipe((0, 0, 0), 10)
+#        while True:
+#            led_strip.colorWipe((20, 0, 0))  # Red wipe
+#            led_strip.colorWipe((0, 20, 0))  # Green wipe
+#            led_strip.colorWipe((0, 0, 20))  # Blue wipe
+#            #rainbow(strip)
+#            #rainbowCycle(strip)
+#            #theaterChaseRainbow(strip)
+#    except KeyboardInterrupt:
+#        if args.clear:
+#            colorWipe((0, 0, 0), 10)
