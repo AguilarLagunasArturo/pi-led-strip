@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Panel</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="control-button">Control Electronics</button>
+
+    <script>
+        $(document).ready(function(){
+            $('#control-button').click(function(){
+                $.post('/execute-action', function(data){
+                    alert("Action Executed: " + data.status);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
