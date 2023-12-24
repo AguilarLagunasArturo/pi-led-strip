@@ -5,10 +5,10 @@ from flask import Flask, request, render_template, jsonify
 # Variables
 DEBUG = False
 DEFAULT_STATUS = [
-    (0, 0, 0),
-    (20, 0, 0),
-    (0, 20, 0),
-    (0, 0, 20),
+    (0, 0, 0),  # Off
+    (20, 0, 0), # Red
+    (0, 20, 0), # Green
+    (0, 0, 20), # Blue
 ]
 curr_status = 1
 
