@@ -4,19 +4,35 @@
     <meta charset="UTF-8">
     <title>Control Panel</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.js"></script>
 </head>
 <body>
-    <button id="control-button">Control Electronics</button>
+    <button id="control-button">Toggle State</button>
 
     <script>
-        $(document).ready(function(){
-            $('#control-button').click(function(){
-                $.post('/execute-action', function(data){
-                    alert("Action Executed: " + data.status);
-                });
+    $(document).ready(function(){
+        $('#control-button').click(function(){
+            let actionData = { action: "toggle_state" };
+
+            $.ajax({
+                url: '/execute-action',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(actionData),
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Success:', data);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
             });
         });
+    });
     </script>
+
+    <script src="{{ url_for('static', filename='sketch.js') }}"></script>
+
 </body>
 </html>
 
