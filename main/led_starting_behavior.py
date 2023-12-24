@@ -2,6 +2,17 @@
 from pi_led_strip.PiLedStrip import PiLedController
 from flask import Flask, render_template, jsonify
 
+# Variables
+DEBUG = False
+DEFAULT_STATUS = [
+    (0, 0, 0),
+    (20, 0, 0),
+    (0, 20, 0),
+    (0, 0, 20),
+]
+curr_status = 1
+
+# Functions
 app = Flask(__name__)
 
 @app.route('/')
@@ -22,15 +33,6 @@ def control_electronics():
     led_strip.colorWipe(DEFAULT_STATUS[curr_status])
     print("Electronics controlled!")  # Replace with your actual control code
     # Your code to control electronics goes here
-
-DEBUG = False
-DEFAULT_STATUS = [
-    (0, 0, 0),
-    (20, 0, 0),
-    (0, 20, 0),
-    (0, 0, 20),
-]
-cur_status = 1
 
 # Main program logic follows:
 if __name__ == '__main__':
