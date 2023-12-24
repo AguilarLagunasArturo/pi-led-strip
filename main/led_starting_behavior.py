@@ -50,12 +50,14 @@ def toggle_state():
     global curr_status
     global led_strip
     curr_status = (curr_status+1)%3
+    if curr_status == 0:
+        color_by_level()
     led_strip.colorWipe(DEFAULT_STATUS[curr_status])
 
 def color_by_level():
     global led_strip
     for i, lv in enumerate(tree_level_list):
-        led_strip.colorWipe((200, 10, 17*(i+1)), custom_range)
+        led_strip.colorWipe((10, 200, 17*(i+1)), custom_range=lv)
 
 # Main program logic follows:
 if __name__ == '__main__':

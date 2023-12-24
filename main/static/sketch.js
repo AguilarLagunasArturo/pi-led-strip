@@ -10,26 +10,26 @@ function preload() {
     tree = loadModel('/static/tree.obj', true);
 }
 
-function mouseClicked() {
-    // Define the action
-    let actionData = { action: "p5_click" };
-
-    // Send the action data to the Flask server
-    fetch('/execute-action', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(actionData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
+//function mouseClicked() {
+//    // Define the action
+//    let actionData = { action: "p5_click" };
+//
+//    // Send the action data to the Flask server
+//    fetch('/execute-action', {
+//        method: 'POST',
+//        headers: {
+//            'Content-Type': 'application/json',
+//        },
+//        body: JSON.stringify(actionData),
+//    })
+//    .then(response => response.json())
+//    .then(data => {
+//        console.log('Success:', data);
+//    })
+//    .catch((error) => {
+//        console.error('Error:', error);
+//    });
+//}
 
 function setup() {
     canvas_w = screen.availWidth * (1-0.2);

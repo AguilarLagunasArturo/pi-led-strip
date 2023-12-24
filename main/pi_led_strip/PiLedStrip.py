@@ -13,7 +13,7 @@ class PiLedController():
         self,
         led_count,                      # Amount of leds to control
         led_strip_pin=None,             # Number of LED pixels
-        led_hz_frequency=1_100_000,     # LED signal frequency in hertz (usually 800khz)
+        led_hz_frequency=1_150_000,     # LED signal frequency in hertz (usually 800khz)
         led_dma=0,                      # DMA channel to use for generating signal (try 10)
         led_brightness=200,             # Set to 0 for darkest and 255 for brightest
         led_invert=False,               # True to invert the signal (when using NPN transistor level shift)
