@@ -47,10 +47,14 @@ class PiLedController():
 
 
     # Define functions which animate LEDs in various ways.
-    def colorWipe(self, rgb, wait_ms=50):
+    def colorWipe(self, rgb, wait_ms=50, custom_range=None):
+        if custom_range:
+            selected_range = custom_range
+        else:
+            selected_range = range(self.strip.numPixels())
         color = Color(rgb[0], rgb[1], rgb[2])
         """Wipe color across display a pixel at a time."""
-        for i in range(self.strip.numPixels()):
+        for i in selected_range:
             self.strip.setPixelColor(i, color)
             self.strip.show()
             time.sleep(wait_ms / 1000.0)
