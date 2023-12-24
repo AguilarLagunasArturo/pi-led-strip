@@ -61,4 +61,4 @@ sudo journalctl -f
 - https://tutorials-raspberrypi.com/how-to-control-a-raspberry-pi-ws2801-rgb-led-strip/
 - https://pypi.org/project/rpi-ws281x/
 - https://docs.circuitpython.org/projects/neopixel/en/latest/
-
+- https://www.youtube.com/watch?v=KJupt2LIjp4
