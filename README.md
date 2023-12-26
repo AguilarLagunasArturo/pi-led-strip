@@ -7,7 +7,7 @@ Controlling 100 leds trough a local hosted webpage.
 ![WebTree](./preview/demo.gif)
 
 ## Materials
-- Raspberry PI W Zero Two
+- Raspberry PI Zero W
 - 5V 6A Power Supply
 - LED Pixel Module WS281
 - Breadboard
