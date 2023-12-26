@@ -2,7 +2,7 @@
 Use a Raspberry PI Zero to control WS2811 indexable led strip over WiFi using a self hosted web page.
 
 # Demo
-Controlling 100 leds trough a local hosted webpage.  
+Controlling 100 leds through a local hosted webpage.  
 
 ![WebTree](./preview/demo.gif)
 
