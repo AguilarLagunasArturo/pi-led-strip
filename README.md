@@ -23,6 +23,7 @@ Enable SPI through the GUI or directly set `` in the rpi configuration file ``.
 ## Dependencies
 Install dependencies to control WS2811 led strip.
 ```bash
+pip install Flask
 pip install rpi-ws281x
 pip install adafruit-circuitpython-neopixel
 ```
