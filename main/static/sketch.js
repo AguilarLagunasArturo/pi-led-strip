@@ -11,20 +11,36 @@ let tree_h;
 let tree_d;
 
 let levels;
+let mouse_diameter;
+let sphere_diameter;
 let spheres = [];
+
+let current_state = 1;
+let DEFAULT_STATUS = [
+    [200, 200, 200],
+    [200, 0, 0],
+    [0, 200, 0],
+    [0, 0, 200]
+];
 
 function preload() {
     tree = loadModel('/static/tree.obj', true);
 }
 
 function mouseClicked() {
-    console.log(mouseX, mouseY)
-    collitions = getSphereCollitions(spheres, 30);
+    let hexColor = $('#colorPicker').val();
+    let rgbColor = hexToRgb(hexColor);
+    console.log(mouseX, mouseY, rgbColor)
+    collitions = getSphereCollitions(spheres, 30, rgbColor);
     if (collitions.length > 0) {
         // Define the action
-        let actionData = { action: "p5_click", leds: collitions, color: [200, 0, 0] };
+        let actionData = {
+            action: "p5_click",
+            leds: collitions,
+            color: rgbColor
+        };
 
-        // Send the action data to the Flask server
+        // Send the action data to Flask
         fetch('/execute-action', {
             method: 'POST',
             headers: {
@@ -43,12 +59,36 @@ function mouseClicked() {
     }
 }
 
+function hexToRgb(hex) {
+    var r = parseInt(hex.slice(1, 3), 16);
+    var g = parseInt(hex.slice(3, 5), 16);
+    var b = parseInt(hex.slice(5, 7), 16);
+    return [r, g, b];
+}
+
+function toggleState() {
+    let ix = 0;
+    let curr_rgb = DEFAULT_STATUS[current_state];
+    current_state = (current_state + 1) % 4;
+    console.log(curr_rgb);
+    for (let i = 0; i < levels.length; i++) {
+        for (let j = 0; j < levels[i]; j++) {
+            spheres[ix].updateColor(curr_rgb[0], curr_rgb[1], curr_rgb[2]);
+            ix += 1;
+        }
+    }
+}
+
+
 function setup() {
     levels = [20, 10, 10, 10, 10, 5, 5, 5, 5, 5, 4, 3, 3, 3, 2];
+    mouse_diameter = 60;
+    sphere_diameter = 6;
+
     let ix = 0;
     for (let i = 0; i < levels.length; i++) {
         for (let j = 0; j < levels[i]; j++) {
-            spheres.push(new xmassSphere(6, ix));
+            spheres.push(new xmassSphere(sphere_diameter, ix));
             ix += 1;
         }
     }
@@ -57,12 +97,11 @@ function setup() {
     tree_h = 185; // 208;
     tree_d = 350; // 478;
 
-    canvas_w = screen.availWidth * (1-0.2);
-    canvas_h = screen.availHeight * (1-0.2);
+    canvas_w = screen.availWidth * (1-0.85);
+    canvas_h = screen.availHeight * (1-0.5);
     canvas_half_w = canvas_w/2;
     canvas_half_h = canvas_h/2;
     createCanvas(canvas_w, canvas_h, WEBGL);
-    // pg = createGraphics(400, 250);
 }
 
 function draw() {
@@ -71,24 +110,29 @@ function draw() {
 
     push();
     translate(-canvas_half_w, -canvas_half_h, 0)
-    fill(32, 32, 32);
-    // noStroke();
-    ellipse(mouseX, mouseY, 60, 60);
-    // console.log(mouseX, mouseY)
-    // translate(canvas_half_w, canvas_half_h, 0);
+    stroke(0);
+    noFill();
+    ellipse(mouseX, mouseY, mouse_diameter, mouse_diameter);
     pop();
 
     rotateX(PI/2);
     let alpha = frameCount * 0.005;
     rotateZ(alpha);
-    fill(20, 200, 80);
+
     push()
+    fill(87, 227, 137);
+    // noStroke();
     stroke(0);
+    // strokeWeight(0.5);
     scale(2);
     model(tree);
     pop()
     noFill();
-    // box(tree_w, tree_h, tree_d);
+
+//    push()
+//    stroke(0);
+//    box(tree_w, tree_h, tree_d);
+//    pop()
 
     let ix = 0;
     let theta;
@@ -99,10 +143,11 @@ function draw() {
         for (let j = 0; j < levels[i]; j++) {
             // console.log( (j+1)/levels[i] );
             push();
+            // stroke(0);
             translate(0, 0, 12);
             theta = (TWO_PI/levels[i]) * j;
             rotateZ(theta); // (j+1)/levels[i]
-            cartesian_x = tree_w/2 - i*(tree_h*0.026);
+            cartesian_x = tree_w/2 - i*(tree_h*0.028);
             cartesian_y = -tree_d/2 + i * (tree_d/15);
             cartesian_x_projection = cartesian_x * cos(theta+alpha)
             translate(
@@ -133,7 +178,7 @@ class xmassSphere {
         this.id = id;
         this.x = 0;
         this.y = 0;
-        this.color = [120, 100, 10]
+        this.color = [245, 194, 17];
     }
 
     updateProjection(x, y) {
@@ -153,39 +198,20 @@ class xmassSphere {
     getId() {
         return this.id;
     }
-
-//    isColliding(point_x, point_y, collition_threshold) {
-//        let collition = false;
-//        let d = sqrt(pow((this.x - point_x), 2) + pow(this.y - point_y, 2))
-//        if (d <= collition_threshold) {
-//            collition = true;
-//        }
-//        return collition;
-//    }
-
 }
 
-function getSphereCollitions(sphere_array, collition_threshold) {
+function getSphereCollitions(sphere_array, collition_threshold, newColor) {
     let sphere_collitions = []
     let point_x = mouseX;
     let point_y = mouseY;
 
     for (var i = 0; i < sphere_array.length; i++) {
-        // console.log("[+] Evaluating: ", sphere_array[i].getId())
-        // console.log(sphere_array[i].x, sphere_array[i].y)
-        // console.log(point_x, point_y)
-
         let d = sqrt(pow((sphere_array[i].x - point_x), 2) + pow(sphere_array[i].y - point_y, 2))
         if (d <= collition_threshold) {
             sphere_collitions.push(sphere_array[i].getId());
-            sphere_array[i].updateColor(200, 0, 0);
+            sphere_array[i].updateColor(newColor[0], newColor[1], newColor[2]);
             console.log("[+] Collided: " + sphere_array[i].getId());
         }
-//        if (sphere_array[i].isColliding(point_x, point_y, collition_threshold)) {
-//            sphere_collitions.push(sphere_array[i].getId());
-//            sphere_array[i].updateColor(200, 0, 0);
-//            console.log("[+] Collided: " + sphere_array[i].getId());
-//        }
     }
     return sphere_collitions
 }

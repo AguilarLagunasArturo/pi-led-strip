@@ -83,5 +83,6 @@ if __name__ == '__main__':
             if args.clear:
                 colorWipe((0, 0, 0), 10)
     else:
-        led_strip.colorWipe(DEFAULT_STATUS[curr_status])
+        # led_strip.colorWipe(DEFAULT_STATUS[curr_status])
+        led_strip.colorWipe([249, 240, 107])
         app.run(host='0.0.0.0', port=8080)
