@@ -4,10 +4,18 @@ Use a Raspberry PI Zero to control WS2811 indexable led strip over WiFi using a 
 # Demo
 Controlling 100 leds trough a local hosted webpage.  
 
-![Tree](./preview/demo.gif)
+![WebTree](./preview/demo.gif)
+
+## Materials
+- Raspberry PI W Zero Two
+- 5V 6A Power Supply
+- LED Pixel Module WS281
+- Breadboard
+- Wrires
 
 # Setup
 ## Wriring
+![Wiring](./preview/wiring.png)
 
 ## Raspberry PI Configuration
 Enable SPI through the GUI or directly set `` in the rpi configuration file ``.
