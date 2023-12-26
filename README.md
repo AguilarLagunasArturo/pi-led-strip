@@ -1,6 +1,10 @@
 # PI Led Strip
 Use a Raspberry PI Zero to control WS2811 indexable led strip over WiFi using a self hosted web page.
 
+# Demo
+Controlling 100 leds trough a local hosted webpage.
+![Tree](./preview/demo.gif)
+
 # Setup
 ## Wriring
 
@@ -57,8 +61,8 @@ sudo journalctl -f
 ```
 
 # References
-- https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring
-- https://tutorials-raspberrypi.com/how-to-control-a-raspberry-pi-ws2801-rgb-led-strip/
-- https://pypi.org/project/rpi-ws281x/
-- https://docs.circuitpython.org/projects/neopixel/en/latest/
-- https://www.youtube.com/watch?v=KJupt2LIjp4
+- [Python WS281x module](https://pypi.org/project/rpi-ws281x/)
+- [Python NeoPixel module](https://docs.circuitpython.org/projects/neopixel/en/latest/)
+- [Wiring](https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring)
+- [Using module](https://tutorials-raspberrypi.com/how-to-control-a-raspberry-pi-ws2801-rgb-led-strip/)
+- [Video tutorial](https://www.youtube.com/watch?v=KJupt2LIjp4)
