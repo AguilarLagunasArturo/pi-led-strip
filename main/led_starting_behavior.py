@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from pi_led_strip.PiLedStrip import PiLedController
+from module.PiLedStrip import PiLedController
 from flask import Flask, request, render_template, jsonify
 
 # Variables
@@ -10,11 +10,11 @@ DEFAULT_STATUS = [
     (0, 20, 0), # Green
     (0, 0, 20), # Blue
 ]
-TREE_LEVEL = [20, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 3, 3, 3, 1]
-LEDS = [i for i in range(100)]
+tree_level = [20, 10, 10, 10, 10, 5, 5, 5, 5, 5, 5, 3, 3, 3, 1]
+leds = [i for i in range(100)]
 tree_level_list = []
-led_aux = LEDS
-for lv in TREE_LEVEL:
+led_aux = leds
+for lv in tree_level:
     tree_level_list.append(led_aux[:lv])
     try:
         led_aux = led_aux[lv:]
@@ -41,9 +41,10 @@ def execute_action():
         print("Toggle state")
         toggle_state()
     elif data['action'] == 'p5_click':
-        data['color']
-        data['leds']
+        color = data['color']
+        selection = data['leds']
         print("Click from p5")
+        color_by_selection(selection, color)
         # color_by_level()
 
     return jsonify({"status": "success"})
@@ -51,10 +52,10 @@ def execute_action():
 def toggle_state():
     global curr_status
     global led_strip
-    curr_status = (curr_status+1)%3
     if curr_status == 0:
         color_by_level()
     led_strip.colorWipe(DEFAULT_STATUS[curr_status])
+    curr_status = (curr_status+1)%4
 
 def color_by_selection(selection, color):
     global led_strip
